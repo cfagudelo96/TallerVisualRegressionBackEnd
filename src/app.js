@@ -15,10 +15,6 @@ class App {
         this.config();
         this.routes.routes(this.app);
         this.mongoSetup();
-        
-        shelljs.exec('apt-get update', { async: true });
-        shelljs.exec('apt-get install xvfb libgtk2.0-0 libnotify-dev libgconf-2-4 libnss3 libxss1 libasound2', { async: true });
-        shelljs.exec('npm install cypress', { async: true });
     }
     config() {
         // support application/json type post data
