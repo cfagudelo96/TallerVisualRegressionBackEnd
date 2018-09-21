@@ -46,37 +46,36 @@ class Report {
     }
     executeScreenshotsGenerator() {
         const currentReport = this;
-        shelljs.exec('npm install cypress').then(() => {
-            cypress.run({
-                spec: 'cypress/integration/colors_spec.js',
-                env: {
-                    id: currentReport._id
-                }
-            }).then(() => {
-                const preFileName = `generador-${currentReport._id}-pre.png`;
-                const postFileName = `generador-${currentReport._id}-post.png`;
-                currentReport.baseImage = fs.readFileSync(`./cypress/screenshots/colors_spec.js/${preFileName}`);
-                currentReport.modifiedImage = fs.readFileSync(`./cypress/screenshots/colors_spec.js/${postFileName}`);
-                resemble(`./cypress/screenshots/colors_spec.js/${preFileName}`)
-                    .compareTo(`./cypress/screenshots/colors_spec.js/${postFileName}`)
-                    .ignoreLess()
-                    .onComplete(function (data) {
-                        currentReport.diffImage = data.getBuffer();
-                        currentReport.diffInformation.misMatchPercentage = data.misMatchPercentage;
-                        currentReport.diffInformation.isSameDimensions = data.isSameDimensions;
-                        currentReport.diffInformation.dimensionDifference = data.dimensionDifference;
-                        const ReportModel = mongoose.model('Report', exports.ReportSchema);
-                        ReportModel.findById(currentReport._id, (err, report) => {
-                            report.executed = true;
-                            report.baseImage = currentReport.baseImage;
-                            report.modifiedImage = currentReport.modifiedImage;
-                            report.diffImage = currentReport.diffImage;
-                            report.diffInformation = currentReport.diffInformation;
-                            report.save();
-                        });
+        shelljs.exec('npm install cypress');
+        cypress.run({
+            spec: 'cypress/integration/colors_spec.js',
+            env: {
+                id: currentReport._id
+            }
+        }).then(() => {
+            const preFileName = `generador-${currentReport._id}-pre.png`;
+            const postFileName = `generador-${currentReport._id}-post.png`;
+            currentReport.baseImage = fs.readFileSync(`./cypress/screenshots/colors_spec.js/${preFileName}`);
+            currentReport.modifiedImage = fs.readFileSync(`./cypress/screenshots/colors_spec.js/${postFileName}`);
+            resemble(`./cypress/screenshots/colors_spec.js/${preFileName}`)
+                .compareTo(`./cypress/screenshots/colors_spec.js/${postFileName}`)
+                .ignoreLess()
+                .onComplete(function (data) {
+                    currentReport.diffImage = data.getBuffer();
+                    currentReport.diffInformation.misMatchPercentage = data.misMatchPercentage;
+                    currentReport.diffInformation.isSameDimensions = data.isSameDimensions;
+                    currentReport.diffInformation.dimensionDifference = data.dimensionDifference;
+                    const ReportModel = mongoose.model('Report', exports.ReportSchema);
+                    ReportModel.findById(currentReport._id, (err, report) => {
+                        report.executed = true;
+                        report.baseImage = currentReport.baseImage;
+                        report.modifiedImage = currentReport.modifiedImage;
+                        report.diffImage = currentReport.diffImage;
+                        report.diffInformation = currentReport.diffInformation;
+                        report.save();
                     });
-            });
-        }); 
+                });
+        });
     }
 }
 exports.Report = Report;
