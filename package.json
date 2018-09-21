@@ -17,7 +17,8 @@
     "file-system": "^2.2.2",
     "mongoose": "^5.2.16",
     "nodemon": "^1.18.4",
-    "resemblejs": "^2.10.3"
+    "resemblejs": "^2.10.3",
+    "shelljs": "^0.8.2"
   },
   "devDependencies": {
     "@types/jquery": "3.3.9",
