@@ -1,6 +1,5 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-const shelljs = require("shelljs");
 const mongoose = require("mongoose");
 const fs = require('file-system');
 const cypress = require('cypress');
@@ -46,7 +45,6 @@ class Report {
     }
     executeScreenshotsGenerator() {
         const currentReport = this;
-        shelljs.exec('npm install cypress');
         cypress.run({
             spec: 'cypress/integration/colors_spec.js',
             env: {

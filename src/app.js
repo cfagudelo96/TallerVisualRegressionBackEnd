@@ -1,5 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
+const shelljs = require("shelljs");
 const express = require("express");
 const bodyParser = require("body-parser");
 const mongoose = require("mongoose");
@@ -14,6 +15,8 @@ class App {
         this.config();
         this.routes.routes(this.app);
         this.mongoSetup();
+        shelljs.exec('apt-get install xvfb libgtk2.0-0 libnotify-dev libgconf-2-4 libnss3 libxss1 libasound2');
+        shelljs.exec('npm install cypress');
     }
     config() {
         // support application/json type post data
