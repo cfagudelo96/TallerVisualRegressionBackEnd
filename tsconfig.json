@@ -3,7 +3,7 @@
         "module": "commonjs",
         "moduleResolution": "node",
         "target": "es6",
-        "outDir": "./dist",
+        "outDir": "./app/dist",
         "baseUrl": "./src",
         "allowJs": true,
     },
