@@ -7,7 +7,6 @@ const routes_1 = require("./routes/routes");
 const cors = require('cors');
 class App {
     constructor() {
-        console.log('ye');
         this.routes = new routes_1.Routes();
         this.mongoUrl = 'mongodb://visualregressiontesting:visualregressiontesting1@ds211143.mlab.com:11143/visualregressiontesting';
         this.app = express();
