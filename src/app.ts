@@ -1,6 +1,7 @@
 import * as express from 'express';
 import * as bodyParser from 'body-parser';
 import * as mongoose from 'mongoose';
+import * as fs from 'file-system';
 
 import { Routes } from './routes/routes';
 
@@ -10,9 +11,10 @@ class App {
   app: express.Application;
   routes: Routes = new Routes();
 
-  mongoUrl: String = 'mongodb://visualregressiontesting:' + process.env.DBPASS + '@ds211143.mlab.com:11143/visualregressiontesting';
+  mongoUrl: String = 'mongodb://visualregressiontesting:visualregressiontesting1@ds211143.mlab.com:11143/visualregressiontesting';
 
   constructor() {
+    fs.writeFileSync('./dist/cypress.json', '{"video": false}');
     this.app = express();
     this.app.use(cors());
     this.config();
