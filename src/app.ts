@@ -9,7 +9,8 @@ const cors = require('cors');
 class App {
   app: express.Application;
   routes: Routes = new Routes();
-  mongoUrl: String = 'mongodb://localhost/aplicacionResembleJS';
+
+  mongoUrl: String = 'mongodb://visualregressiontesting:' + process.env.DBPASS + '@ds211143.mlab.com:11143/visualregressiontesting';
 
   constructor() {
     this.app = express();
